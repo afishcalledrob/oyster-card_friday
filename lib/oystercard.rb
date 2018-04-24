@@ -25,12 +25,12 @@ MINIMUM_BALANCE = 1
   end
 
   def touch_out
-    @in_journey = false
     deduct(MINIMUM_BALANCE)
+    @in_journey = false
   end
 
   private
-  
+
   def deduct(amount)
     @balance -= amount
   end
