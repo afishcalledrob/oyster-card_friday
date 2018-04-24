@@ -6,7 +6,6 @@ MINIMUM_BALANCE = 1
 
   def initialize
     @balance = 0
-    @in_journey = false
   end
 
   def top_up(amount)
@@ -15,18 +14,17 @@ MINIMUM_BALANCE = 1
   end
 
   def in_journey?
-    @in_journey == true
+    @entry_station != nil
   end
 
   def touch_in(entry_station)
     raise 'Card balance is too low' if @balance < MINIMUM_BALANCE
-    @in_journey = true
     @entry_station = entry_station
   end
 
   def touch_out
     deduct(MINIMUM_BALANCE)
-    @in_journey = false
+    @entry_station = nil
   end
 
   private

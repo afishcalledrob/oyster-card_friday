@@ -51,5 +51,11 @@ let(:entry_station) {double :entry_station}
       subject.touch_in(entry_station)
       expect { subject.touch_out }.to change { subject.balance }.by(-Oystercard::MINIMUM_BALANCE)
     end
+    it 'should change the value of entry-station to nil' do
+      subject.top_up(10)
+      subject.touch_in(entry_station)
+      subject.touch_out
+      expect(subject.entry_station).to eq nil
+    end
   end
 end
