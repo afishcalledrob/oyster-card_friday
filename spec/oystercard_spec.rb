@@ -3,6 +3,7 @@ require 'oystercard'
 
 describe Oystercard do
 let(:entry_station) {double :entry_station}
+let(:exit_station) {double :exit_station}
 
   describe '#top_up' do
     it 'should allow user to increase balance by a specified amount' do
@@ -43,19 +44,20 @@ let(:entry_station) {double :entry_station}
     it 'should adjust status to not_in_journey' do
       subject.top_up(10)
       subject.touch_in(entry_station)
-      subject.touch_out
+      subject.touch_out(exit_station)
       expect(subject.in_journey?).to eq false
     end
     it 'deduct minumum fare from balance' do
       subject.top_up(10)
       subject.touch_in(entry_station)
-      expect { subject.touch_out }.to change { subject.balance }.by(-Oystercard::MINIMUM_BALANCE)
+      expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-Oystercard::MINIMUM_BALANCE)
     end
     it 'should change the value of entry-station to nil' do
       subject.top_up(10)
       subject.touch_in(entry_station)
-      subject.touch_out
+      subject.touch_out(exit_station)
       expect(subject.entry_station).to eq nil
     end
   end
+
 end
