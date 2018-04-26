@@ -32,9 +32,11 @@ let(:testjourney) {double 'journey'}
       subject.touch_in(entry_station)
       expect(subject.in_journey?).to eq true
     end
-    it 'should record entry station' do
+    it 'should deduct penalty fare if touching in twice' do
       subject.top_up(10)
-      expect(subject.touch_in(entry_station)).to eq entry_station
+      subject.touch_in(entry_station)
+      subject.touch_in(entry_station)
+      expect(subject.balance).to eq(4)
     end
   end
 
@@ -49,6 +51,12 @@ let(:testjourney) {double 'journey'}
       subject.top_up(10)
       subject.touch_in(entry_station)
       expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-Oystercard::MINIMUM_BALANCE)
+    end
+
+    it 'deduct penalty fare if touching out without touching in' do
+      subject.top_up(10)
+      subject.touch_out(exit_station)
+      expect(subject.balance).to eq(4)
     end
   end
 

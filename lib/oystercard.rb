@@ -23,20 +23,21 @@ MINIMUM_BALANCE = 1
   end
 
   def touch_in(entry_station)
+    deduct(@current_journey.fare) if in_journey?
     raise 'Card balance is too low' if @balance < MINIMUM_BALANCE
     @current_journey.start(entry_station)
   end
 
   def touch_out(exit_station)
-    deduct(MINIMUM_BALANCE)
     @current_journey.end(exit_station)
     @journeys.push(@current_journey.journey_hash)
-    @current_journey = Journey.new
+    deduct(@current_journey.fare)
   end
 
   private
 
   def deduct(amount)
     @balance -= amount
+    @current_journey = Journey.new
   end
 end

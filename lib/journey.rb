@@ -3,6 +3,9 @@ attr_reader :entry_station, :exit_station, :journey_hash
 
   def start(entry_station)
     @entry_station = entry_station
+    @journey_hash = Hash.new
+    @journey_hash[@entry_station] = nil
+
   end
 
   def end(exit_station)
@@ -12,8 +15,15 @@ attr_reader :entry_station, :exit_station, :journey_hash
   end
 
   def fare
+    if  !complete?
+      return 6
+    else
+      Oystercard::MINIMUM_BALANCE
+    end
   end
 
   def complete?
+    @entry_station != nil && @exit_station != nil
+
   end
 end
