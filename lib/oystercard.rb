@@ -29,11 +29,9 @@ MINIMUM_BALANCE = 1
 
   def touch_out(exit_station)
     deduct(MINIMUM_BALANCE)
-    #@current_journey.end(exit_station)
-    #@journeys.push(@current_journey)
-    #@current_journey = nil
-    @journeys[@entry_station] = exit_station
-    @entry_station = nil
+    @current_journey.end(exit_station)
+    @journeys.push(@current_journey.journey_hash)
+    @current_journey = Journey.new
   end
 
   private

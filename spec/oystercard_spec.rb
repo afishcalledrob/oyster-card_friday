@@ -50,23 +50,17 @@ let(:testjourney) {double 'journey'}
       subject.touch_in(entry_station)
       expect { subject.touch_out(exit_station) }.to change { subject.balance }.by(-Oystercard::MINIMUM_BALANCE)
     end
-    it 'should change the value of entry-station to nil' do
-      subject.top_up(10)
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
-      expect(subject.entry_station).to eq nil
-    end
   end
 
   describe '#journeys' do
     it 'should be empty by default' do
-      expect(subject.journeys).to eq({})
+      expect(subject.journeys).to eq([])
     end
     it 'checks that touching in and out creates one journey' do
       subject.top_up(10)
       subject.touch_in(entry_station)
       subject.touch_out(exit_station)
-      expect(subject.journeys).to eq ({entry_station => exit_station})
+      expect(subject.journeys).to eq ([{entry_station => exit_station}])
     end
   end
 

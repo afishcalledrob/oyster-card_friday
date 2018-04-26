@@ -2,6 +2,7 @@ require 'journey'
 
 describe Journey do
   let(:entry_station) {double :entry_station}
+  let(:exit_station) {double :exit_station}
   describe '#start' do
   it "responds to the method 'start'" do
     expect(subject).to respond_to(:start)
@@ -16,6 +17,17 @@ describe Journey do
  describe '#end' do
  it "responds to the method 'end'" do
    expect(subject).to respond_to(:end)
+ end
+
+ it "stores exit station as attribute variable" do
+   subject.end(exit_station)
+   expect(subject.exit_station).to eq(exit_station)
+ end
+
+ it 'stores entry and exit stations in a journey_hash' do
+   subject.start(entry_station)
+   subject.end(exit_station)
+   expect(subject.journey_hash).to eq({entry_station => exit_station})
  end
 end
 
