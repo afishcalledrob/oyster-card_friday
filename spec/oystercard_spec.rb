@@ -1,9 +1,11 @@
 require 'oystercard'
 
 
+
 describe Oystercard do
 let(:entry_station) {double :entry_station}
 let(:exit_station) {double :exit_station}
+let(:testjourney) {double 'journey'}
 
   describe '#top_up' do
     it 'should allow user to increase balance by a specified amount' do
