@@ -19,7 +19,7 @@ MINIMUM_BALANCE = 1
   end
 
   def in_journey?
-    !!@current_journey.entry_station
+   !!@current_journey.entry_station
   end
 
   def touch_in(entry_station)
