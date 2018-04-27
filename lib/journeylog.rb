@@ -15,8 +15,12 @@ class JourneyLog
   def finish
   end
 
-  private
 
-  def journeys
+  def current_journey
+      if @journey_list == [{@entry_station => nil}]
+        return @journey_list
+      else
+      @journey_class = Journey.new
+    end
   end
 end
